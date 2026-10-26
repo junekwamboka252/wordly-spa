@@ -1,0 +1,248 @@
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --background: #f7f7f5;
+  --card: #ffffff;
+  --text: #242522;
+  --muted: #777970;
+  --accent: #7c907b;
+  --accent-hover: #637762;
+  --border: #e5e5e0;
+  --soft-accent: #e9ede7;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.7;
+  transition: background 0.25s, color 0.25s;
+}
+
+header {
+  text-align: center;
+  padding: 48px 20px 38px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 650;
+  letter-spacing: -2px;
+}
+
+header p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+main {
+  width: min(92%, 740px);
+  margin: 20px auto 40px;
+}
+
+.search-section,
+.favorites-section,
+#results {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+
+#theme-button {
+  display: block;
+  margin: 0 0 20px auto;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+#search-form {
+  display: flex;
+  gap: 10px;
+}
+
+#word-input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#word-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124, 144, 123, 0.14);
+}
+
+button {
+  padding: 11px 17px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--accent);
+  color: white;
+  font: inherit;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: var(--accent-hover);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+#results {
+  overflow-wrap: anywhere;
+}
+
+#word-title {
+  margin-bottom: 0;
+  font-size: 2.2rem;
+  letter-spacing: -1px;
+  font-weight: 650;
+}
+
+#pronunciation {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.definition {
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+}
+
+.part-of-speech {
+  color: var(--accent-hover);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.example {
+  padding: 10px 14px;
+  border-left: 2px solid var(--accent);
+  background: var(--soft-accent);
+  color: var(--text);
+  border-radius: 0 8px 8px 0;
+}
+
+#favorite-button {
+  margin-bottom: 16px;
+}
+
+#message {
+  color: #a34343;
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+#favorites-list {
+  padding-left: 22px;
+}
+
+#favorites-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+#favorites-list li button:first-child {
+  background: var(--soft-accent);
+  color: var(--text);
+}
+
+#favorites-list li button:last-child {
+  background: transparent;
+  color: var(--muted);
+  border-color: var(--border);
+}
+
+footer {
+  padding: 20px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+body.dark-theme {
+  --background: #191a18;
+  --card: #232421;
+  --text: #f0f0eb;
+  --muted: #aaa99f;
+  --accent: #9caf98;
+  --accent-hover: #b2c4ae;
+  --border: #393a35;
+  --soft-accent: #30352e;
+}
+
+.dark-theme #favorites-list li button:first-child {
+  color: var(--text);
+}
+
+.dark-theme #favorites-list li button:last-child {
+  color: var(--muted);
+}
+
+.dark-theme .part-of-speech {
+  color: #b2c4ae;
+}
+
+@media (max-width: 520px) {
+  header {
+    padding: 35px 18px 25px;
+  }
+
+  main {
+    width: 92%;
+    margin-top: 12px;
+  }
+
+  .search-section,
+  .favorites-section,
+  #results {
+    padding: 19px;
+    border-radius: 13px;
+  }
+
+  #search-form {
+    flex-direction: column;
+  }
+
+  #search-form button {
+    width: 100%;
+  }
+
+  #favorites-list li {
+    align-items: stretch;
+  }
+}

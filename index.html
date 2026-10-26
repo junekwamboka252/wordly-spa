@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordly - Your Personal Dictionary</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Wordly</h1>
+    <p>Your little corner of words.</p>
+  </header>
+
+  <main>
+    <section class="search-section">
+        <button id="theme-button" type="button">🌙 Dark mode</button>
+      <h2>Discover a word</h2>
+      <form id="search-form">
+        <input
+          type="text"
+          id="word-input"
+          placeholder="Enter a word..."
+          aria-label="Word to search"
+          required
+        >
+        <button type="submit">Search</button>
+      </form>
+    </section>
+
+    <p id="message" role="status" aria-live="polite"></p>
+
+    <section id="results" aria-live="polite">
+      <h2 id="word-title"></h2>
+      <p id="pronunciation"></p>
+      <button id="favorite-button" type="button" hidden>
+  ♡ Add to favorites
+</button>
+      <div id="definitions"></div>
+    </section>
+
+    <section class="favorites-section">
+      <h2>My favorite words</h2>
+      <ul id="favorites-list"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made with curiosity and Wordly.</p>
+  </footer>
+</body>
+</html>
