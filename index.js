@@ -6,6 +6,7 @@ const results = document.getElementById("results");
 const wordTitle = document.getElementById("word-title");
 const pronunciation = document.getElementById("pronunciation");
 const pronunciationAudio = document.getElementById("pronunciation-audio");
+const synonyms = document.getElementById("synonyms");
 const definitions = document.getElementById("definitions");
 const favoriteButton = document.getElementById("favorite-button");
 const favoritesList = document.getElementById("favorites-list");
@@ -50,6 +51,7 @@ searchForm.addEventListener("submit", async function (event) {
     }
 
     displayWord(word, entries);
+    getSynonyms(word);
 favoriteButton.hidden = false;
 message.textContent = "";
 results.hidden = false;
@@ -216,5 +218,46 @@ async function getPronunciation(word) {
 
   } catch (error) {
     pronunciation.textContent = "Audio is unavailable for this word.";
+  }
+}
+
+
+
+async function getSynonyms(word) {
+  synonyms.textContent = "Loading synonyms...";
+
+  try {
+    const response = await fetch(
+      `https://api.datamuse.com/words?rel_syn=${encodeURIComponent(word)}&max=8`
+    );
+
+    if (!response.ok) {
+      throw new Error("Could not load synonyms");
+    }
+
+    const data = await response.json();
+
+    if (data.length === 0) {
+      synonyms.textContent = "No synonyms found for this word.";
+      return;
+    }
+
+    synonyms.innerHTML = "Synonyms: ";
+
+    data.forEach((item) => {
+      const button = document.createElement("button");
+      button.textContent = item.word;
+      button.type = "button";
+
+      button.addEventListener("click", () => {
+        wordInput.value = item.word;
+        searchForm.requestSubmit();
+      });
+
+      synonyms.appendChild(button);
+    });
+
+  } catch (error) {
+    synonyms.textContent = "Synonyms are currently unavailable.";
   }
 }

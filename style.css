@@ -246,3 +246,31 @@ body.dark-theme {
     align-items: stretch;
   }
 }
+
+
+#synonyms {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.8;
+}
+
+#synonyms button {
+  padding: 8px 14px;
+  margin: 2px 0;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--soft-accent);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+#synonyms button:hover {
+  background: var(--accent);
+  color: white;
+}
