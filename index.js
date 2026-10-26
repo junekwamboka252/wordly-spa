@@ -5,10 +5,12 @@ const message = document.getElementById("message");
 const results = document.getElementById("results");
 const wordTitle = document.getElementById("word-title");
 const pronunciation = document.getElementById("pronunciation");
+const pronunciationAudio = document.getElementById("pronunciation-audio");
 const definitions = document.getElementById("definitions");
 const favoriteButton = document.getElementById("favorite-button");
 const favoritesList = document.getElementById("favorites-list");
 const themeButton = document.getElementById("theme-button");
+
 
 results.hidden = true;
 
@@ -60,9 +62,11 @@ results.hidden = false;
 });
 
 function displayWord(word, entries) {
+  getPronunciation(word);
   wordTitle.textContent = word;
-  pronunciation.textContent = "Pronunciation audio may not be available.";
-
+  pronunciation.textContent = "";
+pronunciationAudio.hidden = true;
+pronunciationAudio.removeAttribute("src");
   entries.forEach((entry) => {
     const section = document.createElement("section");
     section.className = "definition";
@@ -166,3 +170,51 @@ themeButton.addEventListener("click", () => {
     themeButton.textContent = "🌙 Dark mode";
   }
 });
+
+
+
+async function getPronunciation(word) {
+  pronunciationAudio.hidden = true;
+  pronunciationAudio.removeAttribute("src");
+  pronunciationAudio.load();
+
+  try {
+    const response = await fetch(
+      `https://api.wiktapi.dev/v1/en/word/${encodeURIComponent(word)}/pronunciations?lang=en`
+    );
+
+    if (!response.ok) {
+      return;
+    }
+
+    const data = await response.json();
+
+    const sounds = data.pronunciations
+      .flatMap((entry) => entry.sounds || []);
+
+    const audioSound = sounds.find(
+      (sound) => sound.audio && sound.audio.includes("en-us-")
+    ) || sounds.find((sound) => sound.audio);
+
+    if (!audioSound) {
+      pronunciation.textContent = "Audio is unavailable for this word.";
+      return;
+    }
+
+    const audioUrl =
+      "https://en.wiktionary.org/wiki/Special:Redirect/file/" +
+      encodeURIComponent(audioSound.audio);
+
+    pronunciationAudio.src = audioUrl;
+    pronunciationAudio.hidden = false;
+    pronunciation.textContent = "Listen to the pronunciation";
+
+    pronunciationAudio.onerror = () => {
+      pronunciationAudio.hidden = true;
+      pronunciation.textContent = "Audio is unavailable for this word.";
+    };
+
+  } catch (error) {
+    pronunciation.textContent = "Audio is unavailable for this word.";
+  }
+}
